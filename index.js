@@ -4,10 +4,8 @@ const port = 3000
 
 let example = "starting"
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*")
-  next()
-})
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.get("/", (req, res) => res.send("Hello World!"))
 app.get("/api/v1/test", (req, res) => res.send({ string: example }))
