@@ -10,7 +10,18 @@ const client = contentful.createClient({
 
 router.get("/", async (req, res) => {
   const response = await client.getEntries()
-  res.send(response)
+  const filteredProducts = await response.items.filter(
+    (item) => item.sys.contentType.sys.id === "product"
+  )
+  const items = await filteredProducts.reduce(
+    (acc, item) => [
+      ...acc,
+      { ...item.fields, image: item.fields.image.fields.file },
+    ],
+    []
+  )
+
+  res.send(items)
 })
 
 module.exports = router
