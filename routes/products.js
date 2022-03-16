@@ -1,11 +1,11 @@
-const express = require("express")
+import express from "express"
+import contentful from "contentful"
+
 const router = express.Router()
 
-const contentful = require("contentful")
-
 const client = contentful.createClient({
-  space: "xb7h25767st1",
-  accessToken: "xjUz7iN0IMF86bXX0Ymge_EeuBAbjbbh2WbTxjEhKQ0",
+  space: process.env.SPACE_KEY,
+  accessToken: process.env.ACCESS_TOKEN,
 })
 
 router.get("/", async (req, res) => {
@@ -24,4 +24,4 @@ router.get("/", async (req, res) => {
   res.send(items)
 })
 
-module.exports = router
+export default router
